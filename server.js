@@ -19,7 +19,7 @@ const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${
 
 mongoose.set('useFindAndModify', false)
 
-const eventsController = require('./controllers/EventsController')
+const eventController = require('./controllers/EventController')
 // const productRatingsController = require('./controllers/ProductRatingsController')
 
 //===== EXPRESS SETUP ======//
@@ -40,7 +40,9 @@ app.get("/api/v1", (req, res) => {
 
 
 //===== ROUTES ======//
-app.post("/api/v1/events", eventController.createEvent);
+app.get("/api/v1/calendar", eventController.listEvents);
+
+app.post("/api/v1/event", eventController.createEvent);
 
 
 
