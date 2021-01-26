@@ -1,38 +1,77 @@
-// const mongoose = require("mongoose");
-// const eventModel = require("../models/eventModel");
+const mongoose = require("mongoose");
+const eventModel = require("./../models/eventModel");
 
-// const eventControllers = {
+const eventControllers = {
 
-//     createEvent: (req, res) => {
+    listEvents: async (req, res) => {
+
+        try {
+            const events = await eventModel.find()
+      
+            if (!events) {
+              res.status(404).json({
+                success: false,
+                message: "Events not found",
+              });
+              return;
+            }
+      
+            res.status(200).json({
+              success: true,
+              events,
+            });
+          } catch (err) {
+            res.status(500).json({
+              success: false,
+              message: err.message,
+            });
+          }
+
+    },
+  
+    createEvent: async (req, res) => {
+
+        const { id, calendarId, title, category, dueDateClass } = req.body;
+
+        console.log(req.body);
+
+        try {
+          if (!id || !calendarId || !title || !category) {
+            res.status(400).json({
+              success: false,
+              message:
+                "Id, calendarId, title and category must be provided",
+            });
+            return;
+          }
+
+          const event = await eventModel.create({
+            id,
+            calendarId,
+            title,
+            category,
+            dueDateClass,
+            // id: req.body.id,
+            // calendarId: req.body.calendarId,
+            // title: req.body.title,
+            // category: req.body.category,
+            // dueDateClass: req.body.dueDateClass,
+          });
     
-//         eventModel
-//           .create({
-//             title: req.body.title,
-//             postType: req.body.postType,
-//             description: req.body.description,
-//             category: req.body.category,
-//             // images: req.body.images,
-//             // delivery: req.body.delivery, //default
-//             // status: req.body.status, //default
-//             tags: req.body.tags,
-//             postedBy: user.id, //req.body.postedBy
-//           })
-//           .then((result) => {
-//             res.json({
-//               success: true,
-//               message: "event successfully created",
-//             });
-//           })
-//           .catch((err) => {
-//             console.log(err);
-//             res.statusCode = 500; // to check
-//             res.json({
-//               success: false,
-//               message: "create event failed",
-//             });
-//           });
-//       },
 
-// };
+          res.status(200).json({
+            success: true,
+            event,
+          });
 
-// module.exports = eventControllers;
+        } catch (err) {
+          res.status(500).json({
+            success: false,
+            message: err.message,
+          });
+        }
+    },
+
+};
+
+module.exports = eventControllers;
