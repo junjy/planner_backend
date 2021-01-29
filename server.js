@@ -15,12 +15,9 @@ const port = 5000;
 
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
-// mongodb+srv://planner-admin:<password>@cluster0.zbv75.mongodb.net/<dbname>?retryWrites=true&w=majority
-
 mongoose.set('useFindAndModify', false)
 
 const eventController = require('./controllers/EventController')
-// const productRatingsController = require('./controllers/ProductRatingsController')
 
 //===== EXPRESS SETUP ======//
 
@@ -42,8 +39,15 @@ app.get("/api/v1", (req, res) => {
 //===== ROUTES ======//
 app.get("/api/v1/calendar", eventController.listEvents);
 
+app.get("/api/v1/event/:id", eventController.getEvent);
+
 app.post("/api/v1/event", eventController.createEvent);
 
+// update
+app.patch("/api/v1/event/:id", eventController.updateEvent);
+
+// delete
+app.delete("/api/v1/event/:id", eventController.deleteEvent);
 
 
 //===== LISTENERS ======//
