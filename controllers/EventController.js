@@ -20,6 +20,7 @@ const eventControllers = {
               success: true,
               events,
             });
+            return;
           } catch (err) {
             res.status(500).json({
               success: false,
@@ -42,11 +43,14 @@ const eventControllers = {
             });
             return;
           }
+
+        //   res.json(event);
     
           res.status(200).json({
             success: true,
             event,
           });
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
@@ -83,7 +87,7 @@ const eventControllers = {
             success: true,
             event,
           });
-
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
@@ -94,11 +98,8 @@ const eventControllers = {
 
     updateEvent: async (req, res) => {
         const { id } = req.params;
-        // const { calendarId } = req.body;
-        // const { calendarId, title, category, dueDateClass } = req.body;
 
         try {
-
         // check if any input fields were left blank
         const eventUpdates = {};
         const formValues = req.body;
@@ -143,6 +144,7 @@ const eventControllers = {
             success: true,
             message: "Event updated",
           });
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
@@ -170,6 +172,7 @@ const eventControllers = {
             success: true,
             message: "Event deleted",
           });
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
