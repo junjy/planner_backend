@@ -11,12 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.11.13",
-    "tui-calendar": "^1.13.0",
-    "tui-code-snippet": "^2.3.2",
-    "tui-date-picker": "^4.1.0",
-    "tui-time-picker": "^2.0.3"
+    "mongoose": "^5.11.13"
   }
 }

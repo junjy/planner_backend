@@ -20,6 +20,7 @@ const eventControllers = {
               success: true,
               events,
             });
+            return;
           } catch (err) {
             res.status(500).json({
               success: false,
@@ -42,11 +43,14 @@ const eventControllers = {
             });
             return;
           }
+
+        //   res.json(event);
     
           res.status(200).json({
             success: true,
             event,
           });
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
@@ -57,33 +61,36 @@ const eventControllers = {
     },
   
     createEvent: async (req, res) => {
-        const { id, calendarId, title, category, dueDateClass } = req.body;
+        // const { title, category } = req.body;
+        const { title, category, start, end } = req.body;
         console.log(req.body);
 
         try {
-          if (!id || !calendarId || !title || !category) {
+        //   if ( !title || !category ) {
+          if ( !title || !category || !start || !end ) {
             res.status(400).json({
               success: false,
               message:
-                "Id, calendarId, title and category must be provided",
+                "Title, category, start & end must be provided",
             });
             return;
           }
 
           const event = await eventModel.create({
-            id,
-            calendarId,
+            // id,
+            // calendarId,
             title,
             category,
-            dueDateClass,
+            start,
+            end
+            // dueDateClass,
           });
     
-
           res.status(200).json({
             success: true,
             event,
           });
-
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
@@ -94,15 +101,13 @@ const eventControllers = {
 
     updateEvent: async (req, res) => {
         const { id } = req.params;
-        // const { calendarId } = req.body;
-        // const { calendarId, title, category, dueDateClass } = req.body;
 
         try {
-
         // check if any input fields were left blank
         const eventUpdates = {};
         const formValues = req.body;
         let updateNum = 0;
+        console.log(formValues);
 
         for (const prop in formValues) {
             if (formValues[prop]) {
@@ -143,6 +148,7 @@ const eventControllers = {
             success: true,
             message: "Event updated",
           });
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,
@@ -170,6 +176,7 @@ const eventControllers = {
             success: true,
             message: "Event deleted",
           });
+          return;
         } catch (err) {
           res.status(500).json({
             success: false,

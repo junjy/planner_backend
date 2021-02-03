@@ -4,15 +4,14 @@ const cors = require("cors");
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express();
-const port = 5000;
+const port = process.env.PORT; //5000
 
 // see env variables
 // console.log(process.env);
-// console.log(process.env.DB_USER);
+// consosle.log(process.env.DB_USER);
 
 
 //===== MONGOOSE ======//
-
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`;
 
 mongoose.set('useFindAndModify', false)
@@ -20,10 +19,18 @@ mongoose.set('useFindAndModify', false)
 const eventController = require('./controllers/EventController')
 
 //===== EXPRESS SETUP ======//
-
 // tells Express app to parse incoming form requests,
 // and make it available in req.body
+// app.use(
+//   cors({
+//       origin: "http://localhost:3000",
+//   })
+// );
 app.use(cors());
+// //set pre-flight request
+// app.options("*", cors());
+
+
 app.use(express.urlencoded({
   extended: true
 }))
@@ -37,17 +44,15 @@ app.get("/api/v1", (req, res) => {
 
 
 //===== ROUTES ======//
-app.get("/api/v1/calendar", eventController.listEvents);
+app.get("/api/v1/events", eventController.listEvents);
 
-app.get("/api/v1/event/:id", eventController.getEvent);
+app.get("/api/v1/events/:id", eventController.getEvent);
 
-app.post("/api/v1/event", eventController.createEvent);
+app.post("/api/v1/events", eventController.createEvent);
 
-// update
-app.patch("/api/v1/event/:id", eventController.updateEvent);
+app.patch("/api/v1/events/:id", eventController.updateEvent);
 
-// delete
-app.delete("/api/v1/event/:id", eventController.deleteEvent);
+app.delete("/api/v1/events/:id", eventController.deleteEvent);
 
 
 //===== LISTENERS ======//
