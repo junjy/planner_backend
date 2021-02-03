@@ -4,7 +4,7 @@ const cors = require("cors");
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express();
-const port = 5000;
+const port = process.env.PORT; //5000
 
 // see env variables
 // console.log(process.env);
@@ -21,11 +21,12 @@ const eventController = require('./controllers/EventController')
 //===== EXPRESS SETUP ======//
 // tells Express app to parse incoming form requests,
 // and make it available in req.body
-app.use(
-  cors({
-      origin: "http://localhost:3000",
-  })
-);
+// app.use(
+//   cors({
+//       origin: "http://localhost:3000",
+//   })
+// );
+app.use(cors());
 // //set pre-flight request
 // app.options("*", cors());
 

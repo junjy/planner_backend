@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema({
     // var name below TBC
-    id: {
-        type: Number,
-        required: true,
-        max: 255,
-    },
-    calendarId: {
-        type: String,
-        required: true, 
-    },
+    // id: {
+    //     type: Number,
+    //     required: true,
+    //     max: 255,
+    // },
+    // calendarId: {
+    //     type: String,
+    //     required: true, 
+    // },
     title: {
         type: String,
         required: true, 
@@ -19,24 +19,24 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true, 
     },
-    dueDateClass: {
-        type: String,
-    },
-    start: {
-        type: Date,
-        required: true,
-        default: Date.now, // check time later
-    },
-    end: {
-        type: Date,
-        required: true,
-        default: Date.now, // check time later
-    },
-    isReadOnly: {
-        type: Boolean,
-        required: true,
-        default: false,
-    },
+    // dueDateClass: {
+    //     type: String,
+    // },
+    // start: {
+    //     type: Date,
+    //     // required: true,
+    //     // default: Date.now, // check time later
+    // },
+    // end: {
+    //     type: Date,
+    //     // required: true,
+    //     // default: Date.now, // check time later
+    // },
+    // isReadOnly: {
+    //     type: Boolean,
+    //     required: true,
+    //     default: false,
+    // },
     createdAt: {
         type: Date,
         required: true,
