@@ -22,16 +22,20 @@ const eventSchema = new mongoose.Schema({
     // dueDateClass: {
     //     type: String,
     // },
-    // start: {
-    //     type: Date,
-    //     // required: true,
-    //     // default: Date.now, // check time later
-    // },
-    // end: {
-    //     type: Date,
-    //     // required: true,
-    //     // default: Date.now, // check time later
-    // },
+    start: {
+        type: Date, //FullCal dates in ISO18601 format
+        required: true,
+        default: Date.now, // check time later
+    },
+    end: {
+        type: Date, //FullCal dates in ISO18601 format
+        required: true,
+        default: Date.now, // check time later
+    },
+    location: {
+        type: String,
+        required: false,
+    },
     // isReadOnly: {
     //     type: Boolean,
     //     required: true,
