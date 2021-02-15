@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 const eventModel = require("./../models/eventModel");
 
 const eventControllers = {
@@ -61,9 +62,10 @@ const eventControllers = {
     },
   
     createEvent: async (req, res) => {
-        // const { title, category } = req.body;
-        const { title, category, start, end } = req.body;
+        // // const { title, category } = req.body;
+        const { title, category, start, end, location } = req.body;
         console.log(req.body);
+        // console.log(req.body.title);
 
         try {
         //   if ( !title || !category ) {
@@ -76,15 +78,18 @@ const eventControllers = {
             return;
           }
 
+
           const event = await eventModel.create({
             // id,
             // calendarId,
             title,
             category,
             start,
-            end
+            end,
+            location
             // dueDateClass,
           });
+          console.log(event);
     
           res.status(200).json({
             success: true,
@@ -186,5 +191,11 @@ const eventControllers = {
       },
 
 };
+
+function convertDateTime(input) {
+  let temp = moment(input).toISOString();
+  // console.log(temp);
+  return temp;
+}
 
 module.exports = eventControllers;
